@@ -39,7 +39,6 @@ contract V2Pair is ERC20, IERC3156FlashLender, ReentrancyGuard {
 
     event Mint(address indexed sender, uint256 amount0, uint256 amount1);
 
-
     constructor(IERC3156FlashLender[] memory _flashLender) public {
         factory = address(f);
         // flashLenders = _flashLender;
@@ -164,5 +163,35 @@ contract V2Pair is ERC20, IERC3156FlashLender, ReentrancyGuard {
         emit Mint(msg.sender, amount0, amount1);
     }
 
-    
+    // function swap(uint256 amount0Out, uint256 amount1Ount, address to, bytes calldata data) external nonReentrant {
+    //     require(amount0Out > 0 || amount1Out > 0, "V2Pair: INSUFFICIENT_OUTPUT_AMOUNT");
+    //     (uint112 _reserve0, uint112 _reserve1) = getReserves();
+    //     require(amount0Out < _reserve0 && amount1Out < _reserve1, "V2Pair: INSUFFICIENT_LIQUIDITY");
+
+    //     uint256 balance0;
+    //     uint256 balance1;
+
+    //     {
+    //         // scope for _token{0,1} to avoid stack too deep errors
+    //         address _token0 = token0;
+    //         address _token1 = token1;
+    //         require(to != _token0 && to != _token1, "V2Pair: INVALID_TO");
+    //         if (amount0Out > 0) ERC20(_token0).transfer(to, amount0Out);
+    //         if (amount1Out > 0) ERC20(_token1).transfer(to, amount1Out);
+    //         // TO DO : UniswapV2Callee
+
+    //         balanceO = ERC20(_token0).balanceOf(address(this));
+    //         balance1 = ERC20(_token1).balanceOf(address(this));
+    //     }
+
+    //     uint256 amount0In = balance0 > _reserve0 - amount0Out ? balance0 - (_reserve0 - amount0Out) : 0;
+    //     uint256 amount1In = balance1 > _reserve1 - amount1Out ? balance1 - (_reserve1 - amount1Out) : 0;
+    //     require(amount0In > 0 || amount1In > 0, "V2Pair: INSUFFICIENT_INPUT_AMOUNT");
+    //     {
+    //         // scope for reserve{0,1}Adjusted, avoids stack too deep errors
+    //         uint256 balance0Adjusted = (balance0.mulDiv(1000, 1)) - (amount0In.mulDiv(3, 1));
+    //         uint256 balance1Adjusted = (balance1.mulDiv(1000, 1)) - (amount1In.mulDiv(3, 1));
+    //         require(balance0Adjusted * balance1Adjusted >= uint256(_reserve0) * _reserve1 * 1000 ** 2, "V2Pair: K");
+    //     }
+    // }
 }
